@@ -1,0 +1,753 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Oct 30 21:26:21 2021
+
+@author: kris2
+
+Data 531 Project
+"""
+
+#%% (Importing the text files)
+import re
+
+file_1 = '/Users/kris2/OneDrive/Documents/Data 531/frankenstein.txt'
+with open(file_1,'r',encoding='utf-8') as f:
+    frankenstein_text = f.readlines()
+
+# this is for the novel "Frankebstein"
+
+file_2 = '/Users/kris2/OneDrive/Documents/Data 531/monte_cristo.txt'
+with open(file_2,'r',encoding='utf-8') as f:
+    monte_cristo_text = f.readlines()
+
+# This is for the file "The Count of Monte Cristo"
+
+file_3 = '/Users/kris2/OneDrive/Documents/Data 531/mathilda.txt'
+with open(file_3,'r',encoding='utf-8') as f:
+    mathilda_text = f.readlines()
+
+# This is one of the test files we will be working on "Mathilda"
+
+file_4 = '/Users/kris2/OneDrive/Documents/Data 531/The_heir_of_Mondolfo.txt'
+with open(file_4,'r',encoding='utf-8') as f:
+    heir_of_mondolfo_text = f.readlines()
+
+# This is one of the test files we will be working on "The heir of Mondolfo"
+
+file_5 = '/Users/kris2/OneDrive/Documents/Data 531/The_Last_Man.txt'
+with open(file_5,'r',encoding='utf-8') as f:
+    last_man_text = f.readlines()
+
+# This is one of the test files we will be working on "The Last Man"
+
+file_6 = '/Users/kris2/OneDrive/Documents/Data 531/The_Man_In_The_Iron_Mask.txt'
+with open(file_6,'r',encoding='utf-8') as f:
+    iron_mask_text = f.readlines()
+
+# This is one of the test files we will be working on "The Man in the Iron Mask"
+
+file_7 = '/Users/kris2/OneDrive/Documents/Data 531/The_Three_Musketeers.txt'
+with open(file_7,'r',encoding='utf-8') as f:
+    three_musketeers_text = f.readlines()
+
+# This is one of the test files we will be working on "The Three Musketeers"
+
+file_8 = '/Users/kris2/OneDrive/Documents/Data 531/The_Wolf_Leader.txt'
+with open(file_8,'r',encoding='utf-8') as f:
+    wolf_leader_text = f.readlines()
+
+# This is one of the test files we will be working on "The Wolf Leader"
+
+#%% Cleaning up the text and removing what is not in the original novels
+
+start_frankenstein = "_To Mrs. Saville, England._"
+end_frankenstein = "*** END OF THE PROJECT GUTENBERG EBOOK FRANKENSTEIN ***"
+# this is where the original text starts and ends
+
+start_monte_cristo = " Chapter 1. Marseilles—The Arrival"
+end_monte_cristo = "FOOTNOTES:"
+# this is where the original text starts and ends
+
+start_mathilda = "Florence. Nov. 9th 1819"
+end_mathilda = "End of the Project Gutenberg EBook of"
+# this is where the original text starts and ends
+
+start_mondolfo = "In the beautiful"
+end_mondolfo = "*** END OF THE PROJECT GUTENBERG EBOOK"
+# this is where the original text starts and ends
+
+start_last_man = "I VISITED Naples in the year"
+end_last_man = "End of the Project Gutenberg EBook"
+# this is where the original text starts and ends
+
+start_iron_man = "The Vicomte de Bragelonne"
+end_iron_man = "End of The Man in the Iron Mask"
+# this is where the original text starts and ends
+
+start_musketeers = "On the first Monday of the"
+end_musketeers = "*** END OF THE PROJECT GUTENBERG EBOOK"
+# this is where the original text starts and ends
+
+start_wolf = "Why, I ask myself, during those"
+end_wolf = "THE END."
+# this is where the original text starts and ends
+
+for line_number in range(len(frankenstein_text)):
+    if frankenstein_text[line_number][0:len(start_frankenstein)] == start_frankenstein:
+        print("For 'Frankenstein' Keep lines starting at ", line_number+1)
+        break
+# this function takes the length of the downloaded text and looks at what line
+# number matches the start and end value as defined above
+
+for line_number in range(len(frankenstein_text)-1,0,-1):
+    if frankenstein_text[line_number][0:len(end_frankenstein)] == end_frankenstein:
+        print("For 'Frankenstein' Remove lines starting at ", line_number-1)
+        break
+print()
+# for the novel Frankenstein we should start at line 74 and stop at line 7490
+
+for line_number in range(len(monte_cristo_text)):
+    if monte_cristo_text[line_number][0:len(start_monte_cristo)] == start_monte_cristo:
+        print("For 'The Count of Monte Cristo' Keep lines starting at ", 
+              line_number+1)
+        break
+
+for line_number in range(len(monte_cristo_text)-1,0,-1):
+    if monte_cristo_text[line_number][0:len(end_monte_cristo)] == end_monte_cristo:
+        print("For 'The Count of Monte Cristo' Remove lines starting at ", 
+              line_number-1)
+        break
+print()
+# for the novel 'The Count of Monte Cristo' keep lines starting at 186 and 
+# remove lines after line 61242
+
+for line_number in range(len(mathilda_text)):
+    if mathilda_text[line_number][0:len(start_mathilda)] == start_mathilda:
+        print("For 'Mathilda' Keep lines starting at ", line_number+1)
+        break
+
+for line_number in range(len(mathilda_text)-1,0,-1):
+    if mathilda_text[line_number][0:len(end_mathilda)] == end_mathilda:
+        print("For 'Mathilda' Remove lines starting at ", line_number-1)
+        break
+print()
+# For the novel Mathilda start at line 517 and end at line 4642
+
+for line_number in range(len(heir_of_mondolfo_text)):
+    if heir_of_mondolfo_text[line_number][0:len(start_mondolfo)] == start_mondolfo:
+        print("For 'Heir of Mondolfo' Keep lines starting at ", line_number+1)
+        break
+
+for line_number in range(len(heir_of_mondolfo_text)-1,0,-1):
+    if heir_of_mondolfo_text[line_number][0:len(end_mondolfo)] == end_mondolfo:
+        print("For 'Heir of Mondolfo' Remove lines starting at ", line_number-1)
+        break
+print()
+# For the novel Heir of Mondolfo start at 74 and end at 1228
+
+for line_number in range(len(last_man_text)):
+    if last_man_text[line_number][0:len(start_last_man)] == start_last_man:
+        print("For 'Last Man' Keep lines starting at ", line_number+1)
+        break
+
+for line_number in range(len(last_man_text)-1,0,-1):
+    if last_man_text[line_number][0:len(end_last_man)] == end_last_man:
+        print("For 'Last Man' Remove lines starting at ", line_number-1)
+        break
+print()
+# for the novel The Last Man start at 51 and end at 15736
+
+for line_number in range(len(three_musketeers_text)):
+    if three_musketeers_text[line_number][0:len(start_musketeers)] == start_musketeers:
+        print("For 'Three Musketeers' Keep lines starting at ", line_number+1)
+        break
+
+for line_number in range(len(three_musketeers_text)-1,0,-1):
+    if three_musketeers_text[line_number][0:len(end_musketeers)] == end_musketeers:
+        print("For 'Three Musketeers' Remove lines starting at ", line_number-1)
+        break
+print()
+# for the novel The Three Musketeers start at 217 and end at 30874
+
+for line_number in range(len(iron_mask_text)):
+    if iron_mask_text[line_number][0:len(start_iron_man)] == start_iron_man:
+        print("For 'Man in the Iron Mask' Keep lines starting at ", line_number+1)
+        break
+
+for line_number in range(len(iron_mask_text)-1,0,-1):
+    if iron_mask_text[line_number][0:len(end_iron_man)] == end_iron_man:
+        print("For 'Man in the Iron Mask' Remove lines starting at ", line_number-1)
+        break
+print()
+# for the novel The Man in the Iron Mask start at 49 and end at 22232
+
+for line_number in range(len(wolf_leader_text)):
+    if wolf_leader_text[line_number][0:len(start_wolf)] == start_wolf:
+        print("For 'Wolf leader' Keep lines starting at ", line_number+1)
+        break
+
+for line_number in range(len(wolf_leader_text)-1,0,-1):
+    if wolf_leader_text[line_number][0:len(end_wolf)] == end_wolf:
+        print("For 'wolf leader' Remove lines starting at ", line_number-1)
+        break
+print()
+# For the novel Wolf leader start at 208 and end at 10162
+
+#%% splitting the string into paragraphs 
+frankenstein_lines = frankenstein_text[74:7390] 
+# values are from above
+frankenstein_lines = ['</PAR><PAR>' if line == '\n' else line for line in frankenstein_lines]
+# get rid of new lines
+frankenstein_string = ''.join(frankenstein_lines)
+# join the text after getting rid of the new line
+frankenstein_string = frankenstein_string[6:] + "</PAR>"
+
+Frankenstein = re.sub(r'(<PAR>|</PAR>|[.,\'";:?!()])',r'',
+                               frankenstein_string)
+# using regression to sub values 
+Frankenstein = Frankenstein.lower()
+# lowering the letters in the text to lowercase
+
+print(Frankenstein[0:1000])
+print()
+# this will follow for the rest of the texts for this project 
+
+monte_cristo_lines = monte_cristo_text[186:61242] 
+monte_cristo_lines = ['</PAR><PAR>' if line == '\n' else line for line in monte_cristo_lines]
+monte_cristo_string = ''.join(monte_cristo_lines)
+monte_cristo_string = monte_cristo_string[6:] + "</PAR>"
+
+Count_of_Monte_Cristo = re.sub(r'(<PAR>|</PAR>|[.,\'";:?!()])',r'',
+                               monte_cristo_string)
+Count_of_Monte_Cristo = Count_of_Monte_Cristo.lower()
+print(Count_of_Monte_Cristo[0:1000])
+print()
+
+
+mathilda_lines = mathilda_text[517:4642] 
+mathilda_lines = ['</PAR><PAR>' if line == '\n' else line for line in mathilda_lines]
+mathilda_string = ''.join(mathilda_lines)
+mathilda_string = mathilda_string[6:] + "</PAR>"
+
+
+Mathilda = re.sub(r'(<PAR>|</PAR>|[.,\'";:?!()])',r'',
+                               mathilda_string)
+Mathilda = re.sub(r'--', r' ', Mathilda)
+
+Mathilda = Mathilda.lower()
+
+print(Mathilda[0:1500])
+print()
+
+Mondolfo_lines = heir_of_mondolfo_text[74:1228] 
+Mondolfo_lines = ['</PAR><PAR>' if line == '\n' else line for line in Mondolfo_lines]
+Mondolfo_string = ''.join(Mondolfo_lines)
+Mondolfo_string = Mondolfo_string[6:] + "</PAR>"
+
+
+Mondolfo = re.sub(r'(<PAR>|</PAR>|[.,\'";:?!()])',r'',
+                               Mondolfo_string)
+
+Mondolfo = Mondolfo.lower()
+
+print(Mondolfo[0:1500])
+print()
+
+Last_man_lines = last_man_text[51:15736] 
+Last_man_lines = ['</PAR><PAR>' if line == '\n' else line for line in Last_man_lines]
+Last_man_string = ''.join(Last_man_lines)
+Last_man_string = Last_man_string[6:] + "</PAR>"
+
+
+Last_man = re.sub(r'(<PAR>|</PAR>|[.,\'";:?!()])',r'',
+                               Last_man_string)
+
+last_man = Last_man.lower()
+
+print(last_man[0:1500])
+print()
+
+Musketeers_lines = three_musketeers_text[217:30874] 
+Musketeers_lines = ['</PAR><PAR>' if line == '\n' else line for line in Musketeers_lines]
+Musketeers_string = ''.join(Musketeers_lines)
+Musketeers_string = Musketeers_string[6:] + "</PAR>"
+
+
+Musketeer = re.sub(r'(<PAR>|</PAR>|[.,\'";:?!()])',r'',
+                               Musketeers_string)
+Musketeer = re.sub(r'(-|_)',r' ',Musketeer)
+Musketeer = Musketeer.lower()
+
+print(Musketeer[0:1500])
+print()
+
+iron_mask_lines = iron_mask_text[49:22232] 
+iron_mask_lines = ['</PAR><PAR>' if line == '\n' else line for line in iron_mask_lines]
+iron_mask_string = ''.join(iron_mask_lines)
+iron_mask_string = iron_mask_string[6:] + "</PAR>"
+
+
+iron_mask = re.sub(r'(<PAR>|</PAR>|[.,\'";:?!()])',r'',
+                               iron_mask_string)
+
+iron_mask = iron_mask.lower()
+
+print(iron_mask[0:1500])
+print()
+
+wolf_lines = wolf_leader_text[208:10162] 
+wolf_lines = ['</PAR><PAR>' if line == '\n' else line for line in wolf_lines]
+wolf_string = ''.join(wolf_lines)
+wolf_string = wolf_string[6:] + "</PAR>"
+
+
+wolf_leader = re.sub(r'(<PAR>|</PAR>|[.,\'";:?!()])',r'',
+                               wolf_string)
+
+wolf_leader = wolf_leader.lower()
+
+print(wolf_leader[0:1500])
+print()
+
+
+#%% counting and the frequency of words in our training data set
+
+import collections # we will be using the method Counter
+import pandas as pd 
+
+path = '/Users/kris2/OneDrive/Documents/Data 531/' 
+# this is the path where we want to save csv files
+
+words_frankenstein = Frankenstein.split()
+counts_frankenstein = collections.Counter(words_frankenstein)
+with open(path+"Frankenstein -- counts.csv", 'w',encoding="utf-8") as f:
+    for word in sorted(counts_frankenstein, 
+                       key=counts_frankenstein.get, reverse=True):
+        f.write(word + ',' + str(counts_frankenstein[word]) + '\n')
+# the csv file should be in the path described above
+
+counts_frankenstein = pd.read_csv('/Users/kris2/OneDrive/Documents/Data 531/Frankenstein -- counts.csv', 
+                                   encoding= 'unicode_escape',
+                                   header=None)
+counts_frankenstein.columns = ["Word", "Frequency"]
+# creating a dataframe of the word and frequency of a word in a text file
+print(counts_frankenstein[:5]) 
+print()
+# this will repeat for the count of monte cristo
+
+words_monte = Count_of_Monte_Cristo.split()
+counts_monte = collections.Counter(words_monte)
+with open(path+"Monte -- counts.csv", 'w',encoding="utf-8") as f:
+    for word in sorted(counts_monte, 
+                       key=counts_monte.get, reverse=True):
+        f.write(word + ',' + str(counts_monte[word]) + '\n')
+
+
+counts_monte = pd.read_csv('/Users/kris2/OneDrive/Documents/Data 531/Monte -- counts.csv', 
+                                   encoding= 'unicode_escape',
+                                   header=None)
+counts_monte.columns = ["Word", "Frequency"]
+print(counts_monte[:5])
+print()
+
+# it seems like Alexander Dumas uses the vowel 'a' more frequently than any
+# other vowel, while mary shelly uses the vowel 'i' more frequently than any
+# other vowel.
+
+#%% Mendenhall’s Characteristic Curves of Composition for Training data set
+
+import numpy as np
+import nltk
+from nltk.probability import FreqDist
+import matplotlib.pyplot as plt
+
+
+# here are are going to get a distribution count of words in our texts
+
+counts = {}
+words = words_frankenstein
+for word in words:
+    wordLength = len(word)
+    if wordLength in counts:
+        counts[wordLength] += 1
+    else:
+        counts[wordLength] = 1
+# if word not in dictionary it adds it, if it already is in dictionary
+# it adds to its frequrncy
+
+total = sum(counts.values()) # Total = the total number of words in the text.
+for i in sorted(counts):
+    print(f'# words of length {i:2} = {counts[i]/total*100:.1f}%')
+
+print()
+
+counts = {}
+words = words_monte
+for word in words:
+    wordLength = len(word)
+    if wordLength in counts:
+        counts[wordLength] += 1
+    else:
+        counts[wordLength] = 1
+
+total = sum(counts.values()) # Total = the total number of words in the text.
+for i in sorted(counts):
+    print(f'# words of length {i:2} = {counts[i]/total*100:.1f}%')
+    
+    
+
+# here we are graphing the distribution of words in from our two texts
+
+data_analysis_1 = nltk.FreqDist(words_frankenstein)
+
+# Let's take the specific words only if their frequency is greater than 3.
+filter_words_1 = dict([(m, n) for m, n in data_analysis_1.items() if len(m) > 1])
+ 
+# for key in sorted(filter_words_1):
+#     print("%s: %s" % (key, filter_words_1[key]))
+ 
+data_analysis_1 = nltk.FreqDist(filter_words_1)
+ 
+data_analysis_1.plot(25, cumulative=False)
+
+
+
+data_analysis_2 = nltk.FreqDist(words_monte)
+
+# Let's take the specific words only if their frequency is greater than 1.
+filter_words_2 = dict([(m, n) for m, n in data_analysis_2.items() if len(m) > 1])
+ 
+# for key in sorted(filter_words_2):
+#     print("%s: %s" % (key, filter_words_2[key]))
+ 
+data_analysis_2 = nltk.FreqDist(filter_words_2)
+ 
+data_analysis_2.plot(25, cumulative=False)
+
+
+# although the words are different, the distribution of 3 letter, 4 letter, ...
+# of words seems to be the same between these two authors. In fact this is why
+# using the Mendenhall’s Characteristic Curves of Composition method
+# is not reliable in stylometric analysis.
+
+#%% Mendenhall’s Characteristic Curves of Composition for Test data set
+
+words_musketeer = Musketeer.split()
+counts_musketeer = collections.Counter(words_musketeer)
+with open(path+"Musketeers -- counts.csv", 'w',encoding="utf-8") as f:
+    for word in sorted(counts_musketeer, 
+                       key=counts_musketeer.get, reverse=True):
+        f.write(word + ',' + str(counts_musketeer[word]) + '\n')
+
+words_mathilda = Mathilda.split()
+counts_mathilda = collections.Counter(words_mathilda)
+with open(path+"Mathilda -- counts.csv", 'w',encoding="utf-8") as f:
+    for word in sorted(counts_mathilda, 
+                       key=counts_mathilda.get, reverse=True):
+        f.write(word + ',' + str(counts_mathilda[word]) + '\n')
+
+
+words_wolf = wolf_leader.split()
+counts_wolf = collections.Counter(words_wolf)
+with open(path+"Wolf -- counts.csv", 'w',encoding="utf-8") as f:
+    for word in sorted(counts_wolf, 
+                       key=counts_wolf.get, reverse=True):
+        f.write(word + ',' + str(counts_wolf[word]) + '\n')
+
+words_mask = iron_mask.split()
+counts_mask = collections.Counter(words_mask)
+with open(path+"Mask -- counts.csv", 'w',encoding="utf-8") as f:
+    for word in sorted(counts_mask, 
+                       key=counts_mask.get, reverse=True):
+        f.write(word + ',' + str(counts_mask[word]) + '\n')
+
+
+words_last_man = last_man.split()
+counts_last_man = collections.Counter(words_last_man)
+with open(path+"last_man -- counts.csv", 'w',encoding="utf-8") as f:
+    for word in sorted(counts_last_man, 
+                       key=counts_last_man.get, reverse=True):
+        f.write(word + ',' + str(counts_last_man[word]) + '\n')
+
+words_mondolfo = Mondolfo.split()
+counts_mondolfo = collections.Counter(words_mondolfo)
+with open(path+"mondolfo -- counts.csv", 'w',encoding="utf-8") as f:
+    for word in sorted(counts_mondolfo, 
+                       key=counts_mondolfo.get, reverse=True):
+        f.write(word + ',' + str(counts_mondolfo[word]) + '\n')
+
+
+counts = {}
+words = words_musketeer
+for word in words:
+    wordLength = len(word)
+    if wordLength in counts:
+        counts[wordLength] += 1
+    else:
+        counts[wordLength] = 1
+
+total = sum(counts.values()) # Total = the total number of words in the text.
+
+
+
+print()
+counts = {}
+words = words_mathilda
+for word in words:
+    wordLength = len(word)
+    if wordLength in counts:
+        counts[wordLength] += 1
+    else:
+        counts[wordLength] = 1
+
+total = sum(counts.values()) # Total = the total number of words in the text.
+
+    
+print()
+counts = {}
+words = words_mondolfo
+for word in words:
+    wordLength = len(word)
+    if wordLength in counts:
+        counts[wordLength] += 1
+    else:
+        counts[wordLength] = 1
+
+total = sum(counts.values()) # Total = the total number of words in the text.
+
+
+
+print()
+counts = {}
+words = words_last_man
+for word in words:
+    wordLength = len(word)
+    if wordLength in counts:
+        counts[wordLength] += 1
+    else:
+        counts[wordLength] = 1
+
+total = sum(counts.values()) # Total = the total number of words in the text.
+
+
+    
+print()
+counts = {}
+words = words_mask
+for word in words:
+    wordLength = len(word)
+    if wordLength in counts:
+        counts[wordLength] += 1
+    else:
+        counts[wordLength] = 1
+
+total = sum(counts.values()) # Total = the total number of words in the text.
+
+
+
+print()
+counts = {}
+words = words_wolf
+for word in words:
+    wordLength = len(word)
+    if wordLength in counts:
+        counts[wordLength] += 1
+    else:
+        counts[wordLength] = 1
+
+
+total = sum(counts.values()) # Total = the total number of words in the text.
+
+
+
+
+print()
+# here we are graphing the distribution of words 
+
+data_analysis_3 = nltk.FreqDist(words_last_man)
+
+# Let's take the specific words only if their frequency is greater than 3.
+filter_words_3 = dict([(m, n) for m, n in data_analysis_3.items() if len(m) > 1])
+ 
+ 
+data_analysis_3 = nltk.FreqDist(filter_words_3)
+ 
+data_analysis_3.plot(25, cumulative=False)
+
+print()
+
+data_analysis_4 = nltk.FreqDist(words_mask)
+
+# Let's take the specific words only if their frequency is greater than 1.
+filter_words_4 = dict([(m, n) for m, n in data_analysis_4.items() if len(m) > 1])
+ 
+
+ 
+data_analysis_4 = nltk.FreqDist(filter_words_4)
+ 
+data_analysis_4.plot(25, cumulative=False)
+
+
+print()
+
+data_analysis_5 = nltk.FreqDist(words_mathilda)
+
+# Let's take the specific words only if their frequency is greater than 3.
+filter_words_5 = dict([(m, n) for m, n in data_analysis_5.items() if len(m) > 1])
+ 
+
+ 
+data_analysis_5 = nltk.FreqDist(filter_words_5)
+ 
+data_analysis_5.plot(25, cumulative=False)
+
+
+print()
+
+data_analysis_6 = nltk.FreqDist(words_mondolfo)
+
+# Let's take the specific words only if their frequency is greater than 1.
+filter_words_6 = dict([(m, n) for m, n in data_analysis_6.items() if len(m) > 1])
+ 
+
+ 
+data_analysis_6 = nltk.FreqDist(filter_words_6)
+ 
+data_analysis_6.plot(25, cumulative=False)
+
+
+print()
+
+
+data_analysis_7 = nltk.FreqDist(words_musketeer)
+
+# Let's take the specific words only if their frequency is greater than 3.
+filter_words_7 = dict([(m, n) for m, n in data_analysis_7.items() if len(m) > 1])
+ 
+
+ 
+data_analysis_7 = nltk.FreqDist(filter_words_7)
+ 
+data_analysis_7.plot(25, cumulative=False)
+
+
+print()
+
+data_analysis_8 = nltk.FreqDist(words_wolf)
+
+# Let's take the specific words only if their frequency is greater than 1.
+filter_words_8 = dict([(m, n) for m, n in data_analysis_8.items() if len(m) > 1])
+ 
+
+ 
+data_analysis_8 = nltk.FreqDist(filter_words_8)
+ 
+data_analysis_8.plot(25, cumulative=False)
+
+print()
+
+
+#%% Kilgraffs Chi-Squared method between two texts in training data set
+
+# we need to lower all words in the texts so it only counts as once. Luckly We
+# already covered this when cleaning up the texts
+
+# Now, let's look at the 500 most common words from each author,
+# we will then merge these into a variable
+# then count the words that can be found in the combined variable
+# We will select the 500 most common words in the combined variable 
+# 
+    
+    
+
+# How often do we really see this common word?
+Shelly_count = counts_frankenstein[:500]
+Dumas_count = counts_monte[:500]
+
+
+
+# counts_joint = counts_frankenstein.merge(counts_monte, on = 'Word')
+
+# Change the column names
+# counts_joint.columns =['Word','Frankenstein Frequency', 'Monte Cristo Frequency']
+
+# Python program to merge two files 
+
+counts_joint = counts_frankenstein.merge(counts_monte, on = 'Word')
+counts_joint.columns =['Word', 'Frankenstein Frequency', 'Monte Frequency']
+
+#add column
+# counts_joint = counts_joint.groupby("Word").sum()
+
+columns_list = ['Frankenstein Frequency', 'Monte Frequency']
+
+counts_joint['Joint Frequency'] = counts_joint[columns_list].sum(axis=1)
+
+
+from scipy.stats import chi2_contingency 
+import scipy.stats as stats 
+info = counts_joint[['Frankenstein Frequency', 'Monte Frequency']]
+print(info[:500])
+
+crosstab = pd.crosstab(info['Frankenstein Frequency'], info['Monte Frequency'])
+crosstab
+
+print(stats.chi2_contingency(crosstab))
+
+# by the p-value we reject the hypothesis that there is any relationship
+# in the distribution of the frequency of words between Mary Shelly and
+# Alexander Dumas
+
+
+#%% Delta Method test for 3 sets of texts with unknown authors
+# install faststylometry if not already installed
+# (pip install faststylometry) 
+
+# create a folder called faststylometry where you have two files labeled
+# "train" and "test" and the train file contains all the texts of authors that
+# we will be comparing to unknown texts in the test file
+
+from faststylometry import Corpus
+
+from faststylometry import load_corpus_from_folder
+from faststylometry import tokenise_remove_pronouns_en
+from faststylometry import calculate_burrows_delta
+from faststylometry import predict_proba, calibrate, get_calibration_curve
+
+import nltk
+#nltk.download("punkt")
+
+train_corpus = load_corpus_from_folder("C:/Users/kris2/OneDrive/Documents/Data 531/faststylometry/data/train")
+
+train_corpus.tokenise(tokenise_remove_pronouns_en)
+
+test_corpus_a = load_corpus_from_folder("C:/Users/kris2/OneDrive/Documents/Data 531/faststylometry/data/test1", 
+                                      pattern=None)
+
+test_corpus_b = load_corpus_from_folder("C:/Users/kris2/OneDrive/Documents/Data 531/faststylometry/data/test2", 
+                                      pattern=None)
+
+test_corpus_c = load_corpus_from_folder("C:/Users/kris2/OneDrive/Documents/Data 531/faststylometry/data/test3", 
+                                      pattern=None)
+
+test_corpus_a.tokenise(tokenise_remove_pronouns_en)
+
+test_corpus_b.tokenise(tokenise_remove_pronouns_en)
+
+test_corpus_c.tokenise(tokenise_remove_pronouns_en)
+
+print(calculate_burrows_delta(train_corpus, test_corpus_a,vocab_size = 50))
+# predicted the author correctly
+
+print(calculate_burrows_delta(train_corpus, test_corpus_b,vocab_size = 50))
+# predicted the author correctly
+
+print(calculate_burrows_delta(train_corpus, test_corpus_c,vocab_size = 50))
+# predicted the author correctly
+
+print()
+
+print(train_corpus.top_tokens) 
+# top words in the train corpus
+      
+print()
